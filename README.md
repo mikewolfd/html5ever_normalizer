@@ -23,7 +23,7 @@ pip install html5ever-normalizer
 ### From GitHub Releases (Pre-built wheels)
 You can download pre-built wheels for your platform from the [GitHub Releases page](https://github.com/yourusername/html5ever_normalizer/releases). These wheels are available for:
 - Linux (x86_64, aarch64)
-- macOS (x86_64, arm64)
+- macOS (x86_64 and arm64, compatible with macOS 10.14+)
 
 Python versions 3.10, 3.11, and 3.12 are supported.
 
