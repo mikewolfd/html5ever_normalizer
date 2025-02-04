@@ -1,0 +1,39 @@
+[build-system]
+requires = ["maturin>=1.4,<2.0"]
+build-backend = "maturin"
+
+[project]
+name = "html5ever_normalizer"
+version = "0.1.0"
+description = "HTML5 Normalizer and Validator using Rust's html5ever"
+authors = [{ name = "html5ever_normalizer Contributors" }]
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+keywords = ["html", "html5", "parser", "normalizer", "validator", "rust", "html5ever"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Rust",
+    "Topic :: Text Processing :: Markup :: HTML",
+]
+
+[project.urls]
+Repository = "https://github.com/yourusername/html5ever_normalizer"
+Documentation = "https://github.com/yourusername/html5ever_normalizer#readme"
+
+[tool.maturin]
+features = ["pyo3/extension-module"]
+python-source = "python"
+module-name = "html5ever_normalizer._html5ever_normalizer"
+
+[tool.pytest.ini_options]
+testpaths = ["python/tests"]
+python_files = ["test_*.py"]
+addopts = "-v --tb=short" 
