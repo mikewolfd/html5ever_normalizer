@@ -2,6 +2,8 @@
 
 A Python binding for the Rust html5ever library that normalizes and validates HTML into a complete, well-structured document.
 
+> This package was developed using [Cursor](https://cursor.sh/) and Claude 3.5 Sonnet.
+
 ## Features
 
 - Normalizes any HTML input into a complete, valid HTML5 document
