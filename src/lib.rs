@@ -6,12 +6,14 @@ offering fast and spec-compliant HTML5 parsing with normalization.
 */
 
 use pyo3::prelude::*;
-use html5ever::{parse_document, serialize};
-use html5ever::tendril::TendrilSink;
+use pyo3::wrap_pyfunction;
+use html5ever::{parse_document};
+use html5ever::serialize::{serialize, SerializeOpts};
 use markup5ever_rcdom::{RcDom, SerializableHandle};
 use html5ever::tree_builder::QuirksMode;
 use html5ever::driver::ParseOpts;
 use std::default::Default;
+use html5ever::tendril::TendrilSink;
 
 /// Parse an HTML string using html5ever and return the normalized HTML.
 ///
@@ -57,24 +59,28 @@ fn parse_html(html: &str, quirks_mode: &str) -> String {
         ..Default::default()
     };
 
-    let dom = parse_document(
-        RcDom::default(),
-        opts
-    ).one(html);
+    // // Parse the HTML input into an RcDom.
+    // let dom: RcDom = parse_document(RcDom::default(), opts)
+    //     .from_utf8()
+    //     .read_from(&mut html.as_bytes())
+    //     .map_err(|e| PyErr::new::<pyo3::exceptions::PyValueError, _>(format!("Parse error: {}", e)))?;
 
-    let mut output = Vec::new();
+    let dom: RcDom = parse_document(RcDom::default(), opts).one(html);
+
+    let mut output_bytes = Vec::new();
+    let serialize_opts = SerializeOpts::default();
     let handle = SerializableHandle::from(dom.document);
-    serialize(&mut output,
-             &handle,
-             Default::default())
-        .expect("Failed to serialize HTML");
 
-    String::from_utf8(output).expect("Invalid UTF-8")
+    let _ = serialize(&mut output_bytes, &handle, serialize_opts)
+        .map_err(|e| PyErr::new::<pyo3::exceptions::PyValueError, _>(format!("Serialize error: {}", e)));
+
+    String::from_utf8(output_bytes)
+        .map_err(|e| PyErr::new::<pyo3::exceptions::PyValueError, _>(format!("UTF-8 error: {}", e))).unwrap()
 }
 
 /// Python module for html5ever bindings
 #[pymodule]
-fn _html5ever_normalizer(py: Python<'_>, m: Py<PyModule>) -> PyResult<()> {
+fn _html5ever_normalizer(py: Python, m: Py<PyModule>) -> PyResult<()> {
     let m = m.bind(py);
     m.add_function(wrap_pyfunction!(parse_html, m)?)?;
     Ok(())
