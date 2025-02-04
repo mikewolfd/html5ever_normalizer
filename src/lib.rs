@@ -74,7 +74,8 @@ fn parse_html(html: &str, quirks_mode: &str) -> String {
 
 /// Python module for html5ever bindings
 #[pymodule]
-fn _html5ever_normalizer(_py: Python<'_>, m: &PyModule) -> PyResult<()> {
+fn _html5ever_normalizer(py: Python<'_>, m: Py<PyModule>) -> PyResult<()> {
+    let m = m.bind(py);
     m.add_function(wrap_pyfunction!(parse_html, m)?)?;
     Ok(())
 } 

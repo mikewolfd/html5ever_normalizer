@@ -37,7 +37,7 @@ Output Structure:
     4. Consistent structure regardless of input format
 """
 
-from ._html5pyever import parse_html
+from ._html5ever_normalizer import parse_html
 
 __version__ = "0.1.0"
 __all__ = ['parse_html'] 
