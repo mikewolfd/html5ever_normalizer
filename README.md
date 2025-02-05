@@ -1,6 +1,6 @@
 # html5ever_normalizer
 
-A Python binding for the Rust html5ever library that normalizes and validates HTML into a complete, well-structured document.
+A proof of concept Python binding for the Rust html5ever library that normalizes and validates HTML into a complete, well-structured document.
 
 > This package was developed using [Cursor](https://cursor.sh/) and Claude 3.5 Sonnet.
 
@@ -13,6 +13,10 @@ A Python binding for the Rust html5ever library that normalizes and validates HT
 - Fast HTML5 parsing using Rust's html5ever
 - Support for different quirks modes (limited by default, full, or no-quirks)
 
+## Goals
+- Fully implement html5ever's interface
+- Integrate with lxml
+  
 ## Installation
 
 ### From PyPI (Recommended)
